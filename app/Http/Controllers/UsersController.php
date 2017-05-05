@@ -22,7 +22,7 @@ class UsersController extends Controller
   public function store(Request $request)
   {
     $rules=[
-      'name' => 'required',
+      'username' => 'required',
       'email' => 'required',
       'password' => 'required',
     ];
@@ -41,7 +41,7 @@ class UsersController extends Controller
       return Response::json(["error"=>"User already exists"]);
     }
     $user = new User;
-    $user->name = $request->input("username");
+    $user->username = $request->input("username");
     $user->email = $request->input("email");
     $user->password = Hash::make($request->input("password"));
     $user->roleID = 2;
@@ -50,7 +50,7 @@ class UsersController extends Controller
     return Response::json(["success"=>"Thanks for signing up!"]);
   }
 
-    public function update($id)
+    public function update($id, Request $request)
     {
       $rules=[
         'name' => 'required',
@@ -63,6 +63,13 @@ class UsersController extends Controller
       if($validator->fails())
       {
         return Response::json(["error" => "You need to fill out all fields."]);
+      }
+
+      $check = User::where("email","=",$request->input("email"))->orWhere("name","=",$request->input("username"))->first();
+
+      if(!empty($check))
+      {
+        return Response::json(["error"=>"User already exists"]);
       }
 
       else {
