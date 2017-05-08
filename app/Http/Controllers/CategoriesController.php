@@ -31,7 +31,7 @@ class CategoriesController extends Controller
       }
 
       $category = new Category;
-      $category->name = $request->input('category');
+      $category->name = $request->input('name');
       $category->save();
 
       return Response::json(['success' => 'Category Created!']);
@@ -52,7 +52,7 @@ class CategoriesController extends Controller
 
       $category = Category::find($id);
 
-      $category->name = $request->input('category');
+      $category->name = $request->input('name');
       $category->save();
 
       return Response::json(['success' => 'Category Updated!']);

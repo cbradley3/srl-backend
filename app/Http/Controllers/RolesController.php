@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Purifier;
 use Response;
-use Hash;
-use App\User;
 use App\Role;
 
 class RolesController extends Controller
@@ -22,7 +20,7 @@ class RolesController extends Controller
     public function store(Request $request)
     {
       $rules=[
-      'username' => 'required',
+      'name' => 'required',
     ];
 
     $validator = Validator::make(Purifier::clean($request->all()), $rules);
@@ -33,7 +31,7 @@ class RolesController extends Controller
     }
 
     $role = new Role;
-    $role->username = $request->input("username");
+    $role->name = $request->input("name");
     $role->save();
 
     return Response::json(["success"=>"Role has been assigned!"]);
@@ -43,8 +41,19 @@ class RolesController extends Controller
     public function update($id, Request $request)
 
     {
+      $rules=[
+      'name' => 'required',
+    ];
+
+    $validator = Validator::make(Purifier::clean($request->all()), $rules);
+
+    if($validator->fails())
+    {
+      return Response::json(["error" => "You need to fill out all fields."]);
+    }
+
       $role = Role::find($id);
-      $role->username = $request->input('username')
+      $role->name = $request->input('name')
       $role->save();
 
       return Response::json(["success" => "Role Updated."]);
