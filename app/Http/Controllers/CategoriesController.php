@@ -33,6 +33,8 @@ class CategoriesController extends Controller
       $category = new Category;
       $category->name = $request->input('category');
       $category->save();
+
+      return Response::json(['success' => 'Category Created!']);
     }
 
     public function update($id, Request $request)
@@ -69,6 +71,6 @@ class CategoriesController extends Controller
 
       $categories->delete();
 
-      return Response::json(['success' => "Category deleted!"]);
+      return Response::json(['success' => "Category Deleted!"]);
     }
 }

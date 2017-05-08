@@ -24,7 +24,6 @@ class OrdersController extends Controller
       'productId' => 'required',
       'quantity' => 'required',
       'totalPrice' => 'required',
-      'comment' => 'required',
     ];
 
     $validator = Validator::make(Purifier::clean($request->all()), $rules);
@@ -52,7 +51,6 @@ class OrdersController extends Controller
         'productId' => 'required',
         'quantity' => 'required',
         'totalPrice' => 'required',
-        'comment' => 'required',
       ];
 
       $validator = Validator::make(Purifier::clean($request->all()), $rules);

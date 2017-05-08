@@ -23,8 +23,6 @@ class RolesController extends Controller
     {
       $rules=[
       'username' => 'required',
-      'email' => 'required',
-      'password' => 'required',
     ];
 
     $validator = Validator::make(Purifier::clean($request->all()), $rules);
@@ -36,8 +34,6 @@ class RolesController extends Controller
 
     $role = new Role;
     $role->username = $request->input("username");
-    $role->email = $request->input("email");
-    $role->password = Hash::make($request->input("password"));
     $role->save();
 
     return Response::json(["success"=>"Role has been assigned!"]);
@@ -49,7 +45,6 @@ class RolesController extends Controller
     {
       $role = Role::find($id);
       $role->username = $request->input('username')
-      $role->password = Hash::make($request->input("password"));
       $role->save();
 
       return Response::json(["success" => "Role Updated."]);
