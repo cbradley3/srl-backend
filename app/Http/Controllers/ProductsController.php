@@ -21,7 +21,7 @@ class ProductsController extends Controller
     {
       $rules = [
       'name' => 'required',
-      'categoryId' => 'required',
+      'categoryID' => 'required',
       'availability' => 'required',
       'price' => 'required',
       'description' => 'required',
@@ -37,7 +37,7 @@ class ProductsController extends Controller
 
     $product = new Category;
     $product->name = $request->input('name');
-    $product->categoryId = $request->input('categoryId');
+    $product->categoryID = $request->input('categoryId');
     $product->availability = $request->input('availability');
     $product->price = $request->input('price');
     $product->description = $request->input('description');
@@ -56,7 +56,7 @@ class ProductsController extends Controller
     {
       $rules = [
       'name' => 'required',
-      'categoryId' => 'required',
+      'categoryID' => 'required',
       'availability' => 'required',
       'price' => 'required',
       'description' => 'required',
@@ -71,7 +71,7 @@ class ProductsController extends Controller
     }
 
     $product->name = $request->input('name');
-    $product->categoryId = $request->input('categoryId');
+    $product->categoryID = $request->input('categoryId');
     $product->availability = $request->input('availability');
     $product->price = $request->input('price');
     $product->description = $request->input('description');

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Purifier;
 use Response;
 use App\Order;
+use Auth;
 
 class OrdersController extends Controller
 {
@@ -20,8 +21,7 @@ class OrdersController extends Controller
   public function store(Request $request)
   {
     $rules = [
-      'name' => 'required',
-      'productId' => 'required',
+      'productID' => 'required',
       'quantity' => 'required',
     ];
 
@@ -33,8 +33,8 @@ class OrdersController extends Controller
     }
 
     $order = new Category;
-    $order->name = $request->input('name');
-    $order->productId = $request->input('productId');
+    $order->userID = Auth::user()->id;
+    $order->productID = $request->input('productID');
     $order->quantity = $request->input('quantity');
     $order->totalPrice = $request->input('totalPrice');
     $order->comment = $request->input('comment');
@@ -46,8 +46,7 @@ class OrdersController extends Controller
     public function update($id, Request $request)
     {
       $rules = [
-        'name' => 'required',
-        'productId' => 'required',
+        'productID' => 'required',
         'quantity' => 'required',
       ];
 
@@ -58,8 +57,8 @@ class OrdersController extends Controller
         return Response::json(["error" => "You need to fill out all fields."]);
       }
 
-      $order->name = $request->input('name');
-      $order->productId = $request->input('productId');
+      $order->userID = Auth::user()->id;
+      $order->productID = $request->input('productID');
       $order->quantity = $request->input('quantity');
       $order->totalPrice = $request->input('totalPrice');
       $order->comment = $request->input('comment');
