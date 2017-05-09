@@ -17,7 +17,7 @@ class Orders extends Migration
           $table->increments('id');
           $table->integer('userID');
           $table->integer('productID');
-          $table->integer('amount');
+          $table->integer('quantity');
           $table->integer('totalPrice');
           $table->longText('comment');
           $table->timestamps();

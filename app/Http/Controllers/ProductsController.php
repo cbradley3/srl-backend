@@ -35,7 +35,7 @@ class ProductsController extends Controller
       return Response::json(["error" => "You need to fill out all fields."]);
     }
 
-    $product = new Category;
+    $product = new Product;
     $product->name = $request->input('name');
     $product->categoryID = $request->input('categoryId');
     $product->availability = $request->input('availability');

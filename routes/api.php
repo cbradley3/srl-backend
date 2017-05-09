@@ -39,5 +39,6 @@ Route::post('deleteRole/{id}', 'RolesController@destroy');
 
 Route::post('signup', 'UsersController@signup');
 Route::post('signin', 'UsersController@signin');
+Route::get('getUser', 'UsersController@getUser');
 
 Route::any('{path?}', 'MainController@index')->where("path", ".+");

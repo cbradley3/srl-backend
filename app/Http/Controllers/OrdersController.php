@@ -46,7 +46,7 @@ class OrdersController extends Controller
       return Response::json(["error" => "Product is unavailable."]);
     }
 
-    $order = new Category;
+    $order = new Order;
     $order->userID = Auth::user()->id;
     $order->productID = $request->input('productID');
     $order->quantity = $request->input('quantity');
