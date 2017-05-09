@@ -37,13 +37,7 @@ Route::post('updateRole/{id}', 'RolesController@update');
 Route::get('showRole/{id}', 'RolesController@show');
 Route::post('deleteRole/{id}', 'RolesController@destroy');
 
-Route::get('getUsers', 'UsersController@index');
-Route::post('storeUser', 'UsersController@store');
-Route::post('updateUser/{id}', 'UsersController@update');
-Route::get('showUser/{id}', 'UsersController@show');
-Route::post('deleteUser/{id}', 'UsersController@destroy');
-
-Route::post('signup', 'AuthController@signup');
-Route::post('signin', 'AuthController@signin');
+Route::post('signup', 'UsersController@signup');
+Route::post('signin', 'UsersController@signin');
 
 Route::any('{path?}', 'MainController@index')->where("path", ".+");
