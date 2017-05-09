@@ -93,7 +93,7 @@ class ProductsController extends Controller
       return Response::json($product);
     }
 
-  public function delete($id)
+  public function destroy($id)
     {
       $product = Product::find($id);
 

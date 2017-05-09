@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Purifier;
 use Response;
 use App\Order;
+use App\Product;
 use Auth;
 
 class OrdersController extends Controller
@@ -30,6 +31,19 @@ class OrdersController extends Controller
     if($validator->fails())
     {
       return Response::json(["error" => "You need to fill out all fields."]);
+    }
+
+    $product = Product::find($request->input('productID'));
+    if(empty($product))
+
+    {
+      return Response::json(["error" => "Product not found."]);
+    }
+
+    if($product->availability==0)
+
+    {
+      return Response::json(["error" => "Product is unavailable."]);
     }
 
     $order = new Category;
@@ -60,7 +74,7 @@ class OrdersController extends Controller
       $order->userID = Auth::user()->id;
       $order->productID = $request->input('productID');
       $order->quantity = $request->input('quantity');
-      $order->totalPrice = $request->input('totalPrice');
+      $order->totalPrice = $request->input('amount')*$product->price;
       $order->comment = $request->input('comment');
       $order->save();
 
@@ -74,7 +88,7 @@ class OrdersController extends Controller
         return Response::json($order);
       }
 
-    public function delete($id)
+    public function destroy($id)
       {
         $order = Order::find($id);
 

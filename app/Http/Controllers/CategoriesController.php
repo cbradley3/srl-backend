@@ -60,16 +60,16 @@ class CategoriesController extends Controller
 
     public function show($id)
     {
-      $categories = Category::find($id);
+      $category = Category::find($id);
 
       return Response::json($category);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
-      $categories = Category::find($id)
+      $category = Category::find($id);
 
-      $categories->delete();
+      $category->delete();
 
       return Response::json(['success' => "Category Deleted!"]);
     }
