@@ -94,6 +94,6 @@ class OrdersController extends Controller
 
         $order->delete();
 
-        return Respone::json(['success' => 'Order deleted!']);
+        return Response::json(['success' => 'Order deleted!']);
       }
 }

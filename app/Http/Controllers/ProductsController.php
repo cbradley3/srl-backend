@@ -37,7 +37,7 @@ class ProductsController extends Controller
 
     $product = new Product;
     $product->name = $request->input('name');
-    $product->categoryID = $request->input('categoryId');
+    $product->categoryID = $request->input('categoryID');
     $product->availability = $request->input('availability');
     $product->price = $request->input('price');
     $product->description = $request->input('description');
@@ -70,8 +70,10 @@ class ProductsController extends Controller
       return Response::json(["error" => "You need to fill out all fields."]);
     }
 
+    $product = Product::find($id);
+
     $product->name = $request->input('name');
-    $product->categoryID = $request->input('categoryId');
+    $product->categoryID = $request->input('categoryID');
     $product->availability = $request->input('availability');
     $product->price = $request->input('price');
     $product->description = $request->input('description');
@@ -99,6 +101,6 @@ class ProductsController extends Controller
 
       $product->delete();
 
-      return Respone::json(['success' => 'Product deleted.']);
+      return Response::json(["success" => "Product deleted."]);
     }
 }
