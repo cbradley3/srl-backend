@@ -19,7 +19,7 @@ class Orders extends Migration
           $table->integer('productID');
           $table->integer('quantity');
           $table->integer('totalPrice');
-          $table->longText('comment');
+          $table->longText('comment')->nullable();
           $table->timestamps();
       });
     }

@@ -9,9 +9,15 @@ use Response;
 use App\Order;
 use App\Product;
 use Auth;
+use JWTAuth;
 
 class OrdersController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware("jwt.auth", ["only" => ["index", "store", "update", "show", "destroy"]]);
+  }
+
   public function index()
   {
     $order = Order::all();
@@ -50,7 +56,7 @@ class OrdersController extends Controller
     $order->userID = Auth::user()->id;
     $order->productID = $request->input('productID');
     $order->quantity = $request->input('quantity');
-    $order->totalPrice = $request->input('totalPrice');
+    $order->totalPrice = $request->input('quantity')*$product->price;
     $order->comment = $request->input('comment');
     $order->save();
 
@@ -74,7 +80,7 @@ class OrdersController extends Controller
       $order->userID = Auth::user()->id;
       $order->productID = $request->input('productID');
       $order->quantity = $request->input('quantity');
-      $order->totalPrice = $request->input('amount')*$product->price;
+      $order->totalPrice = $request->input('quantity')*$product->price;
       $order->comment = $request->input('comment');
       $order->save();
 
