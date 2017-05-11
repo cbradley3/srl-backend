@@ -8,9 +8,15 @@ use Purifier;
 use Response;
 use App\Role;
 use Auth;
+use JWTAuth;
 
 class RolesController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware("jwt.auth", ["only" => ["index", "store", "update", "show", "destroy"]]);
+  }
+  
     public function index()
     {
       $role = Role::all();

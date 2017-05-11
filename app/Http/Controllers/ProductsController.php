@@ -8,19 +8,17 @@ use Purifier;
 use Response;
 use App\Product;
 use Auth;
+use JWTAuth;
 
 class ProductsController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware("jwt.auth", ["only" => ["index", "store", "update", "show", "destroy"]]);
+  }
     public function index()
     {
       $product = Product::all();
-
-      $user = Auth::user();
-      if($user->roleID != 1)
-
-      {
-        return Response::json(["error" => "Not Allowed"]);
-      }
 
       return Response::json($product);
     }
@@ -120,13 +118,6 @@ class ProductsController extends Controller
     public function show($id)
     {
       $product = Product::find($id);
-
-      $user = Auth::user();
-      if($user->roleID != 1)
-
-      {
-        return Response::json(["error" => "Not Allowed"]);
-      }
 
       return Response::json($product);
     }

@@ -8,19 +8,18 @@ use Purifier;
 use Response;
 use App\Category;
 use Auth;
+use JWTAuth;
 
 class CategoriesController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware("jwt.auth", ["only" => ["index", "store", "update", "show", "destroy"]]);
+  }
+  
     public function index()
     {
       $category = Category::all();
-
-      $user = Auth::user();
-      if($user->roleID != 1)
-
-      {
-        return Response::json(["error" => "Not Allowed"]);
-      }
 
       return Response::json($category);
     }
