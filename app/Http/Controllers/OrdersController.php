@@ -22,6 +22,13 @@ class OrdersController extends Controller
   {
     $order = Order::all();
 
+    $user = Auth::user();
+    if($user->roleID != 1)
+
+    {
+      return Response::json(["error" => "Not Allowed"]);
+    }
+
     return Response::json($order);
   }
 
@@ -97,6 +104,12 @@ class OrdersController extends Controller
     public function destroy($id)
       {
         $order = Order::find($id);
+
+        $order = Auth::user();
+        if($user->roleID != 1 || $user->id != $order->userID)
+        {
+          return Response::json(["error" => "Not Authorized to Delete!"])
+        }
 
         $order->delete();
 

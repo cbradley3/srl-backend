@@ -7,12 +7,20 @@ use Illuminate\Support\Facades\Validator;
 use Purifier;
 use Response;
 use App\Category;
+use Auth;
 
 class CategoriesController extends Controller
 {
     public function index()
     {
       $category = Category::all();
+
+      $user = Auth::user();
+      if($user->roleID != 1)
+
+      {
+        return Response::json(["error" => "Not Allowed"]);
+      }
 
       return Response::json($category);
     }
@@ -28,6 +36,13 @@ class CategoriesController extends Controller
       if($validator->fails())
       {
         return Response::json(["error" => "You need to fill out all fields."]);
+      }
+
+      $user = Auth::user();
+      if($user->roleID != 1)
+
+      {
+        return Response::json(["error" => "Not Allowed"]);
       }
 
       $category = new Category;
@@ -50,6 +65,13 @@ class CategoriesController extends Controller
         return Response::json(["error" => "You need to fill out all fields."]);
       }
 
+      $user = Auth::user();
+      if($user->roleID != 1)
+
+      {
+        return Response::json(["error" => "Not Allowed"]);
+      }
+
       $category = Category::find($id);
 
       $category->name = $request->input('name');
@@ -62,12 +84,26 @@ class CategoriesController extends Controller
     {
       $category = Category::find($id);
 
+      $user = Auth::user();
+      if($user->roleID != 1)
+
+      {
+        return Response::json(["error" => "Not Allowed"]);
+      }
+
       return Response::json($category);
     }
 
     public function destroy($id)
     {
       $category = Category::find($id);
+
+      $user = Auth::user();
+      if($user->roleID != 1)
+
+      {
+        return Response::json(["error" => "Not Allowed"]);
+      }
 
       $category->delete();
 

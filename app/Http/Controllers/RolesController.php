@@ -7,12 +7,20 @@ use Illuminate\Support\Facades\Validator;
 use Purifier;
 use Response;
 use App\Role;
+use Auth;
 
 class RolesController extends Controller
 {
     public function index()
     {
       $role = Role::all();
+
+      $user = Auth::user();
+      if($user->roleID != 1)
+
+      {
+        return Response::json(["error" => "Not Allowed"]);
+      }
 
       return Response::json($role);
     }
@@ -52,8 +60,15 @@ class RolesController extends Controller
       return Response::json(["error" => "You need to fill out all fields."]);
     }
 
+    $user = Auth::user();
+    if($user->roleID != 1)
+
+    {
+      return Response::json(["error" => "Not Allowed"]);
+    }
+
       $role = Role::find($id);
-      $role->name = $request->input('name')
+      $role->name = $request->input('name');
       $role->save();
 
       return Response::json(["success" => "Role Updated."]);
@@ -64,6 +79,13 @@ class RolesController extends Controller
     {
       $role = Role::find($role->$id);
 
+      $user = Auth::user();
+      if($user->roleID != 1)
+
+      {
+        return Response::json(["error" => "Not Allowed"]);
+      }
+
       return Response::json($role);
     }
 
@@ -71,6 +93,13 @@ class RolesController extends Controller
 
     {
       $role = Role::find($id);
+
+      $user = Auth::user();
+      if($user->roleID != 1)
+
+      {
+        return Response::json(["error" => "Not Allowed"]);
+      }
 
       $role->delete();
 
