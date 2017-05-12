@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Purifier;
 use Response;
 use App\Product;
+use App\Category;
 use Auth;
 use JWTAuth;
 
