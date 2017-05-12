@@ -14,9 +14,9 @@ class CategoriesController extends Controller
 {
   public function __construct()
   {
-    $this->middleware("jwt.auth", ["only" => ["index", "store", "update", "show", "destroy"]]);
+    $this->middleware("jwt.auth", ["only" => ["store", "update", "show", "destroy"]]);
   }
-  
+
     public function index()
     {
       $category = Category::all();

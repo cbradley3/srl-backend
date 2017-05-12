@@ -15,7 +15,7 @@ class ProductsController extends Controller
 {
   public function __construct()
   {
-    $this->middleware("jwt.auth", ["only" => ["index", "store", "update", "show", "destroy"]]);
+    $this->middleware("jwt.auth", ["only" => ["store", "update", "destroy"]]);
   }
     public function index()
     {
